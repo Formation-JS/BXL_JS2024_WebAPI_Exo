@@ -19,7 +19,7 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 - [ ] Obtenir le détail d'un produit
 - [ ] **(Admin/Manager)** Ajouter un produit
 - [ ] **(Admin/Manager)** Modifier un produit
-- [ ] Ajouter une image à un produit *(Tips : Multer)*
+- [ ] **(Admin/Manager)** Ajouter une image à un produit *(Tips : Multer)*
 
 ### /api/stock - Gestion des transactions dans le stock des produits
 - [ ] Ajout ou retrait d'une quantité de produit dans le stock
@@ -29,12 +29,14 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 *Il doit resté possible d'obtenir les transactions annulées.*
 - [ ] **(Admin)** Corrigé la valeur d'un stock de produit  
 *Ce endpoint sera utilisé, par exemple, lors des inventaires de l'entrepôt.*
+- [ ] Obtenir l'historique du stock des produits 
+*Ce endpoint sera utilisé pour générer un graphique de l'évolution du stock*
 
 ### /api/member - Gestion des utilisateurs 
 - [ ] **(Admin)** Créer des compte
 - [ ] Permettre une connexion via un JWT
 - [ ] Obtenir les informations d'un profil
-- [ ] Mettre à jours les informations de son profil
+- [ ] Modifier les informations de son profil
 - [ ] **(Admin)** Désactiver  un compte
 
 ## Les modèles de données
@@ -91,9 +93,21 @@ Celui-ci doit être haché, pour cela, vous pouvez utiliser :
 
 ### Stock
 
-**Retrait de produit du stock**  
+#### Retrait de produit du stock
 La quantité de produit ne doit jamais tombé en négatif.  
 Si une transaction devrait le faire, celle-ci doit être bloqué et envoyé une erreur à l'utilisateur.
 
-**Notification (Bonus)**  
+#### Notification (Bonus)
 Quand la quantité de produit arrivé à moins de 10, suite à un retrait. Les managers reçoivent un mail d'alert.
+
+#### Historique du stock des produits
+L'utilisateur doit pouvoir obtenir l'historique de la quantité d'un produit dans le stock pour un laps de temps. Cette fonctionnalité permettra à l'application front-end d'afficher un graphique avec l'évolution du stock de produit.
+
+L'utilisateur doit pouvoir parametrer les informations suivantes :
+- Le laps de temps (Date de debut et de fin)
+- La granularité : 
+  - Jour
+  - Semaine
+  - Mois
+  - Année
+- La possibilités de renseigner un ou plusieurs produits
