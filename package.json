@@ -6,6 +6,8 @@
   "scripts": {
     "start": "tsx --env-file=.env src/app.ts",
     "dev": "tsx --env-file=.env --watch src/app.ts",
+    "db-sync": "tsx --env-file=.env src/init-database.ts",
+    "db-init": "tsx --env-file=.env src/init-database.ts --drop-db",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,7 +21,10 @@
     "chalk": "^5.4.1",
     "cors": "^2.8.5",
     "express": "5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "pg": "^8.14.0",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.21"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
