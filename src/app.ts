@@ -1,7 +1,8 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { color } from './utils/color.utils';
+import apiRouter from './routers';
 
 //! Env variable
 const { NODE_ENV, PORT } = process.env;
@@ -15,9 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 //! Routing
-app.get('/', (req: Request, res: Response) => {
-  res.json({ msg: 'Example' });
-});
+app.use('/api{/v1}', apiRouter);
 
 //! Starting
 app.listen(PORT, () => {
