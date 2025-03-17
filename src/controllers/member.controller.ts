@@ -55,11 +55,11 @@ const memberController = {
   },
 
   login: async (req: Request, res: Response) => {
-    const { login, password} = req.body as { login: string, password: string; };
+    const { login, password } = req.body as { login: string, password: string; };
 
     const member = await memberService.login(login, password);
-    if(!member) {
-      res.status(400).json({ error : 'Credential is not valid !'})
+    if (!member) {
+      res.status(400).json({ error: 'Credential is not valid !' });
       return;
     }
 

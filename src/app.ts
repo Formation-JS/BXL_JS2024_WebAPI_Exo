@@ -5,6 +5,7 @@ import cors from 'cors';
 import { color } from './utils/color.utils';
 import apiRouter from './routers';
 import { AppDataSource } from './config/db';
+import { authentificationMiddleware } from './middlewares/auth.middleware';
 
 //! Env variable
 const { NODE_ENV, PORT } = process.env;
@@ -26,6 +27,7 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
+app.use(authentificationMiddleware());
 
 //! Routing
 app.use('/api{/v1}', apiRouter);

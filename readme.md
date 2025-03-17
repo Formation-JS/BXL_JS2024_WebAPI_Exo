@@ -35,8 +35,9 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 ### /api/member - Gestion des utilisateurs 
 - [x] **(Admin)** Créer des compte
 - [x] Permettre une connexion via un JWT
-- [x] Obtenir les informations d'un profil
-- [ ] Modifier les informations de son profil
+- [x] **(Connecté)** Obtenir les informations d'un profil
+- [ ] **(Connecté)** Modifier les informations de profil  
+*Ce endpoint permet de modifier uniquement les informations de son profil. Un admin peut modifier tout les profils*
 - [x] **(Admin)** Désactiver  un compte
 
 ## Les modèles de données
