@@ -10,8 +10,12 @@ declare global {
       DB_USERNAME: string;
       DB_PASSWORD: string;
       DB_DATABASE: string;
-    }
+      // Json Web Token
+      JWT_SECRET: string;
+      JWT_ISSUER: string;
+      JWT_AUDIENCE: string;
   }
+}
 }
 
 export default global;

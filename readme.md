@@ -34,10 +34,10 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 
 ### /api/member - Gestion des utilisateurs 
 - [x] **(Admin)** Créer des compte
-- [ ] Permettre une connexion via un JWT
+- [x] Permettre une connexion via un JWT
 - [x] Obtenir les informations d'un profil
 - [ ] Modifier les informations de son profil
-- [ ] **(Admin)** Désactiver  un compte
+- [x] **(Admin)** Désactiver  un compte
 
 ## Les modèles de données
 

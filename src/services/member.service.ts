@@ -33,3 +33,26 @@ export async function getInfo(id: number): Promise<Member | null> {
 
   return !member ? null : { ...member, password: null };
 }
+
+export async function lockAccount(id: number): Promise<boolean> {
+  const memberRepo = AppDataSource.getRepository(Member);
+  const result = await memberRepo.update(id, {
+    isDisable: true
+  });
+
+  return result.affected === 1;
+}
+
+export async function login(login: string, password: string): Promise<Member | null> {
+  // NB: A la place de renvoyer "null", il est également possible de déclancher une erreur.
+  
+  const memberRepo = AppDataSource.getRepository(Member);
+  const member = await memberRepo.findOneBy({ login, isDisable: false });
+
+  if (!member || !member.password) {
+    return null;
+  }
+  const isValid = await argon2.verify(member.password, password);
+
+  return !isValid ? null : { ...member, password: null };
+}
