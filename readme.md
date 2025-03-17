@@ -33,11 +33,12 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 *Ce endpoint sera utilisé pour générer un graphique de l'évolution du stock*
 
 ### /api/member - Gestion des utilisateurs 
-- [ ] **(Admin)** Créer des compte
-- [ ] Permettre une connexion via un JWT
-- [ ] Obtenir les informations d'un profil
-- [ ] Modifier les informations de son profil
-- [ ] **(Admin)** Désactiver  un compte
+- [x] **(Admin)** Créer des compte
+- [x] Permettre une connexion via un JWT
+- [x] **(Connecté)** Obtenir les informations d'un profil
+- [x] **(Connecté)** Modifier les informations de profil  
+*Ce endpoint permet de modifier uniquement les informations de son profil. Un admin peut modifier tout les profils*
+- [x] **(Admin)** Désactiver  un compte
 
 ## Les modèles de données
 
