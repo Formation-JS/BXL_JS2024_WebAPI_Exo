@@ -1,7 +1,7 @@
+import type { MemberCreateForm, MemberLoginForm, MemberUpdateForm } from '../@types/member';
 import z from 'zod';
-import { MemberCreateData, MemberLoginData, MemberUpdateData } from '../@types/member';
 
-export const memberUpdateValidator: z.ZodType<MemberUpdateData> = z.object({
+export const memberUpdateValidator: z.ZodType<MemberUpdateForm> = z.object({
   email: z.string({
     required_error: 'Le champs "email" est requis',
     invalid_type_error: 'L\'email doit être une chaîne de caractere'
@@ -24,7 +24,7 @@ export const memberUpdateValidator: z.ZodType<MemberUpdateData> = z.object({
     .nullable()
 });
 
-export const memberCreateValidator: z.ZodType<MemberCreateData> = memberUpdateValidator.and(z.object({
+export const memberCreateValidator: z.ZodType<MemberCreateForm> = memberUpdateValidator.and(z.object({
   login: z.string({
     required_error: 'Le champs "login" est requis',
     invalid_type_error: 'Le login doit être une chaîne de caractere'
@@ -37,7 +37,7 @@ export const memberCreateValidator: z.ZodType<MemberCreateData> = memberUpdateVa
   })
 }));
 
-export const memberLoginValidator: z.ZodType<MemberLoginData> = z.object({
+export const memberLoginValidator: z.ZodType<MemberLoginForm> = z.object({
   login: z.string({
     required_error: 'Le champs "login" est requis',
     invalid_type_error: 'Le login doit être une chaîne de caractere'
