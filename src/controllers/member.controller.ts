@@ -19,8 +19,22 @@ const memberController = {
       .json(memberCreated);
   },
 
-  getInfo: (req: Request, res: Response) => {
-    res.sendStatus(501);
+  getInfo: async (req: Request, res: Response) => {
+    const memberId = parseInt(req.params.id);
+
+    if (isNaN(memberId)) {
+      res.status(400).json({ error: 'Bad id parameter' });
+      return;
+    }
+
+    const member = await memberService.getInfo(memberId);
+
+    if (!member) {
+      res.status(404).json({ error: 'Member not found' });
+      return;
+    }
+
+    res.status(200).json(member);
   },
 
   modify: (req: Request, res: Response) => {

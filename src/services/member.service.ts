@@ -26,3 +26,10 @@ export async function exists(login: string): Promise<boolean> {
 
   return count !== 0;
 }
+
+export async function getInfo(id: number): Promise<Member | null> {
+  const memberRepo = AppDataSource.getRepository(Member);
+  const member = await memberRepo.findOneBy({ id });
+
+  return !member ? null : { ...member, password: null };
+}
