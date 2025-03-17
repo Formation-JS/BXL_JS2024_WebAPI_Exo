@@ -2,12 +2,15 @@ import { Router } from 'express';
 import productController from '../controllers/product.controller';
 import { authorizeMiddleware } from '../middlewares/auth.middleware';
 import { MemberRole } from '../models/member.model';
+import { paginationMiddleware } from '../middlewares/pagination.middleware';
 
 
 const productRouter = Router();
 
 productRouter.route('/')
-  .get(productController.getAll)
+  .get(
+    paginationMiddleware({ defaultLimit: 5}),
+    productController.getAll)
   .post(
     authorizeMiddleware(MemberRole.ADMIN, MemberRole.MANAGER),
     productController.add)

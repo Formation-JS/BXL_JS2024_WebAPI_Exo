@@ -15,8 +15,8 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 ## Endpoints de l'API
 
 ### /api/product - Gestion des produits
-- [ ] Obtenir la liste des produits
-- [ ] Obtenir le détail d'un produit
+- [x] Obtenir la liste des produits
+- [x] Obtenir le détail d'un produit
 - [ ] **(Admin/Manager)** Ajouter un produit
 - [ ] **(Admin/Manager)** Modifier un produit
 - [ ] **(Admin/Manager)** Ajouter une image à un produit *(Tips : Multer)*
