@@ -1,6 +1,6 @@
 {
   "name": "web-api-exo-recap",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Exercice recap - WebAPI avec Express",
   "main": "src/app.ts",
   "scripts": {
