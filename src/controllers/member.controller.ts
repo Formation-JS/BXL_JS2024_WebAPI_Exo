@@ -1,12 +1,13 @@
 import type { Request, Response } from 'express';
 import * as memberService from '../services/member.service';
-import { MemberData } from '../@types/member';
+import { MemberCreateData, MemberUpdateData } from '../@types/member';
 import { generateToken } from '../utils/jwt.utils';
+import { MemberRole } from '../models/member.model';
 
 const memberController = {
 
   add: async (req: Request, res: Response) => {
-    const data = req.body as MemberData;
+    const data = req.body as MemberCreateData;
 
     if (await memberService.exists(data.login)) {
       res.status(409).json({ error: `Login "${data.login}" already exists` });
@@ -38,8 +39,22 @@ const memberController = {
     res.status(200).json(member);
   },
 
-  modify: (req: Request, res: Response) => {
-    res.sendStatus(501);
+  modify: async (req: Request, res: Response) => {
+    const memberId = parseInt(req.params.id);
+    const data = req.body as MemberUpdateData;
+
+    if (isNaN(memberId)) {
+      res.status(400).json({ error: 'Bad id parameter' });
+      return;
+    }
+
+    if (req.token!.id !== memberId && req.token!.role !== MemberRole.ADMIN) {
+      res.sendStatus(403);
+      return;
+    }
+
+    const isUpdated = await memberService.update(memberId, data);
+    res.sendStatus(isUpdated ? 204 : 404);
   },
 
   lock: async (req: Request, res: Response) => {

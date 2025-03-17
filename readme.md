@@ -36,7 +36,7 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 - [x] **(Admin)** Créer des compte
 - [x] Permettre une connexion via un JWT
 - [x] **(Connecté)** Obtenir les informations d'un profil
-- [ ] **(Connecté)** Modifier les informations de profil  
+- [x] **(Connecté)** Modifier les informations de profil  
 *Ce endpoint permet de modifier uniquement les informations de son profil. Un admin peut modifier tout les profils*
 - [x] **(Admin)** Désactiver  un compte
 
