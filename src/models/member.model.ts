@@ -33,7 +33,7 @@ export default class Member {
   role: MemberRole;
 
   @Column({ type: 'timestamp', nullable: true })
-  lastConnection: Date;
+  lastConnection: Date | null;
 
   @Column({ type: 'bool', default: false })
   isDisable: boolean;

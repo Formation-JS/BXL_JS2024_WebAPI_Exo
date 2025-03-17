@@ -3,6 +3,7 @@ import * as memberService from '../services/member.service';
 import { MemberCreateData, MemberLoginData, MemberUpdateData } from '../@types/member';
 import { generateToken } from '../utils/jwt.utils';
 import { MemberRole } from '../models/member.model';
+import { MemberDataDTO } from '../dto/member.dto';
 
 const memberController = {
 
@@ -18,7 +19,7 @@ const memberController = {
 
     res.status(201)
       .location(`/api/member/${memberCreated.id}`)
-      .json(memberCreated);
+      .json(new MemberDataDTO(memberCreated));
   },
 
   getInfo: async (req: Request, res: Response) => {
@@ -36,7 +37,7 @@ const memberController = {
       return;
     }
 
-    res.status(200).json(member);
+    res.status(200).json(new MemberDataDTO(member));
   },
 
   modify: async (req: Request, res: Response) => {
