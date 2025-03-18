@@ -1,3 +1,4 @@
+import { Not } from 'typeorm';
 import { ProductForm } from '../@types/product';
 import { AppDataSource } from '../config/db';
 import Category from '../models/category.model';
@@ -47,4 +48,27 @@ export async function create(data: ProductForm) {
   await productRepo.save(product);
 
   return product;
+}
+
+export async function update(id: number, data: ProductForm) {
+  const productRepo = AppDataSource.getRepository(Product);
+  const categoryRepo = AppDataSource.getRepository(Category);
+
+  const category = await categoryRepo.findOneBy({ id: data.categoryId });
+  if (!category) {
+    throw new Error('La catégorie n\'existe pas.');
+  }
+
+  if (!! await productRepo.findOneBy({ ean13: data.ean13, id: Not(id) })) {
+    throw new Error('Code EAN13 est déjà utilisé !');
+  }
+
+  const result = await productRepo.update(id, {
+    name: data.name,
+    ean13: data.ean13,
+    description: data.description,
+    category
+  })
+
+  return result.affected === 1;
 }

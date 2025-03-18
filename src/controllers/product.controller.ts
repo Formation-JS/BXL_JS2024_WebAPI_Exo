@@ -50,7 +50,21 @@ const productController = {
   },
 
   modify: async (req: Request, res: Response) => {
-    res.sendStatus(501);
+    const productId = parseInt(req.params.id);
+    const data = req.data as ProductForm;
+
+    if (isNaN(productId)) {
+      res.status(400).json({ error: 'Bad id parameter' });
+      return;
+    }
+
+    try {
+      const isUpdated = await productService.update(productId, data);
+      res.sendStatus(isUpdated ? 204 : 404);
+    }
+    catch (error: any) {
+      res.status(400).json({ error: error?.message ?? error });
+    }
   },
 
   uploadImage: async (req: Request, res: Response) => {

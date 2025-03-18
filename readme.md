@@ -18,7 +18,7 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 - [x] Obtenir la liste des produits
 - [x] Obtenir le détail d'un produit
 - [x] **(Admin/Manager)** Ajouter un produit
-- [ ] **(Admin/Manager)** Modifier un produit
+- [x] **(Admin/Manager)** Modifier un produit
 - [ ] **(Admin/Manager)** Ajouter une image à un produit *(Tips : Multer)*
 
 ### /api/stock - Gestion des transactions dans le stock des produits

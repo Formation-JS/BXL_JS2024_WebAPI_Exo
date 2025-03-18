@@ -22,6 +22,7 @@ productRouter.route('/')
 productRouter.route('/:id')
   .get(productController.getById)
   .put(
+    bodyValidatorMiddleware(productValidator),
     authorizeMiddleware(MemberRole.ADMIN, MemberRole.MANAGER),
     productController.modify)
   .all((_, res) => { res.sendStatus(405); });
