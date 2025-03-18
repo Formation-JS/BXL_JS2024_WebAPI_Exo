@@ -3,6 +3,8 @@ import productController from '../controllers/product.controller';
 import { authorizeMiddleware } from '../middlewares/auth.middleware';
 import { MemberRole } from '../models/member.model';
 import { paginationMiddleware } from '../middlewares/pagination.middleware';
+import { bodyValidatorMiddleware } from '../middlewares/body-validator.middleware';
+import { productValidator } from '../validators/product.validator';
 
 
 const productRouter = Router();
@@ -12,6 +14,7 @@ productRouter.route('/')
     paginationMiddleware({ defaultLimit: 5}),
     productController.getAll)
   .post(
+    bodyValidatorMiddleware(productValidator),
     authorizeMiddleware(MemberRole.ADMIN, MemberRole.MANAGER),
     productController.add)
   .all((_, res) => { res.sendStatus(405); });
