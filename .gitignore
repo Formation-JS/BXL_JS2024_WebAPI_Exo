@@ -1,3 +1,6 @@
+# Upload file by Multer
+uploads
+
 # Logs
 logs
 *.log

@@ -21,4 +21,7 @@ export default class Product {
   @JoinColumn()
   category: Category;
 
+  @Column({ type: 'character varying', length: 50, nullable: true })
+  image: string | null;
+
 }

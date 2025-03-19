@@ -14,6 +14,9 @@ declare global {
       JWT_SECRET: string;
       JWT_ISSUER: string;
       JWT_AUDIENCE: string;
+      // Multer
+      UPLOAD_TEMP: string;
+      UPLOAD_DIRECTORY: string;
   }
 }
 }

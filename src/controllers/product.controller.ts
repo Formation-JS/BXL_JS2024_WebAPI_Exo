@@ -67,8 +67,51 @@ const productController = {
     }
   },
 
+  getImage: async (req: Request, res: Response) => {
+    const productId = parseInt(req.params.id);
+
+    if (isNaN(productId)) {
+      res.status(400).json({ error: 'Bad id parameter' });
+      return;
+    }
+
+    const image = await productService.getImage(productId);
+    if (!image) {
+      res.sendStatus(404);
+      return;
+    }
+
+    res.download(image);
+  },
+
   uploadImage: async (req: Request, res: Response) => {
-    res.sendStatus(501);
+    const productId = parseInt(req.params.id);
+
+    if (!req.file || !req.file.mimetype.startsWith('image/')) {
+      res.status(400).json({ error: 'The "image" field is required' });
+      return;
+    }
+
+    const { filename } = req.file;
+
+    if (isNaN(productId)) {
+      res.status(400).json({ error: 'Bad id parameter' });
+      return;
+    }
+
+    const product = await productService.findById(productId);
+    if (!product) {
+      res.status(404).json({ error: 'Product not found' });
+      return;
+    }
+
+    const imageSaved = await productService.saveImage(productId, filename);
+    if (!imageSaved) {
+      res.status(400).json({ error: 'Error on save image' });
+      return;
+    }
+
+    res.location(`/api/product/${productId}/image`).sendStatus(201);
   }
 
 };

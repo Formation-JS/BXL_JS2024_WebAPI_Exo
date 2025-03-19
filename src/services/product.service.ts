@@ -3,6 +3,8 @@ import { ProductForm } from '../@types/product';
 import { AppDataSource } from '../config/db';
 import Category from '../models/category.model';
 import Product from '../models/product.model';
+import path from 'path';
+import fs from 'fs/promises';
 
 export async function findById(id: number): Promise<Product | null> {
   const productRepo = AppDataSource.getRepository(Product);
@@ -68,7 +70,70 @@ export async function update(id: number, data: ProductForm) {
     ean13: data.ean13,
     description: data.description,
     category
-  })
+  });
 
   return result.affected === 1;
+}
+
+
+async function obtainPathnameImage(filename: string) : Promise<string | null> {
+  try {
+    const pathname = path.resolve(process.env.UPLOAD_DIRECTORY, 'products', filename);
+    await fs.access(pathname);
+    return pathname;
+  }
+  catch {
+    return null;
+  }
+}
+
+async function moveImageIntoStorage(filename: string) : Promise<Boolean> {
+  try {
+    const pathUploaded = path.resolve(process.env.UPLOAD_TEMP, filename);
+    const pathSaved = path.resolve(process.env.UPLOAD_DIRECTORY, 'products', filename);
+    
+    await fs.access(pathUploaded);
+    await fs.rename(pathUploaded, pathSaved);
+    return true;
+  }
+  catch {
+    return false;
+  }
+}
+
+export async function getImage(id: number): Promise<string | null> {
+  const product = await findById(id);
+
+  if (!product || !product.image) {
+    return null;
+  }
+
+  return await obtainPathnameImage(product.image);
+}
+
+export async function saveImage(id: number, filename: string): Promise<boolean> {
+  const productRepo = AppDataSource.getRepository(Product);
+
+  const oldImage = await productRepo.findOne({
+    select: { image: true },
+    where: { id }
+  })?.then(result => result?.image);
+
+  const result = await productRepo.update(id, { image: filename });
+  if(result.affected !== 1) {
+    return false;
+  }
+
+  if (oldImage) {
+    await removeImage(oldImage);
+  }
+  await moveImageIntoStorage(filename);
+  return true;
+}
+
+export async function removeImage(filename: string) : Promise<void> {
+  const pathname = await obtainPathnameImage(filename);
+  if(pathname) {
+    await fs.unlink(pathname);
+  }
 }

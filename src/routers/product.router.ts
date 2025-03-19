@@ -5,7 +5,7 @@ import { MemberRole } from '../models/member.model';
 import { paginationMiddleware } from '../middlewares/pagination.middleware';
 import { bodyValidatorMiddleware } from '../middlewares/body-validator.middleware';
 import { productValidator } from '../validators/product.validator';
-
+import { uploadFileMiddleware } from '../middlewares/upload-file.middleware';
 
 const productRouter = Router();
 
@@ -28,8 +28,10 @@ productRouter.route('/:id')
   .all((_, res) => { res.sendStatus(405); });
 
 productRouter.route('/:id/image')
+  .get(productController.getImage)
   .post(
     authorizeMiddleware(MemberRole.ADMIN, MemberRole.MANAGER),
+    uploadFileMiddleware('image'),
     productController.uploadImage)
   .all((_, res) => { res.sendStatus(405); });
 
