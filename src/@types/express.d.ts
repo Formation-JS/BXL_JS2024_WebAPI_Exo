@@ -10,6 +10,12 @@ declare global {
       // Body validator Middleware
       data?: object;
 
+      // Pagination Middleware
+      pagination? : { 
+        offset: number,
+        limit: number
+      };
+
     }
   }
 }

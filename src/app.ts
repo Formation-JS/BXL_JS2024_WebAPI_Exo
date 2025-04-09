@@ -32,6 +32,7 @@ app.use(authentificationMiddleware());
 //! Routing
 app.use('/api{/v1}', apiRouter);
 
+
 //! Starting
 app.listen(PORT, () => {
   const { msg, warn, info } = color;

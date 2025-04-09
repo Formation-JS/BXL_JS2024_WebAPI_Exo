@@ -1,9 +1,9 @@
 import argon2 from 'argon2';
-import { MemberCreateData, MemberUpdateData } from '../@types/member';
+import { MemberCreateForm, MemberUpdateForm } from '../@types/member';
 import { AppDataSource } from '../config/db';
 import Member from '../models/member.model';
 
-export async function create(data: MemberCreateData): Promise<Member> {
+export async function create(data: MemberCreateForm): Promise<Member> {
   const memberRepo = AppDataSource.getRepository(Member);
   const result = await memberRepo.create({
     login: data.login,
@@ -63,7 +63,7 @@ export async function login(login: string, password: string): Promise<Member | n
   return { ...member, password: null };
 }
 
-export async function update(id: number, data: MemberUpdateData): Promise<boolean> {
+export async function update(id: number, data: MemberUpdateForm): Promise<boolean> {
   const memberRepo = AppDataSource.getRepository(Member);
 
   const result = await memberRepo.update(id, {

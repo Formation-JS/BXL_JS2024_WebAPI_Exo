@@ -1,6 +1,6 @@
 {
   "name": "web-api-exo-recap",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Exercice recap - WebAPI avec Express",
   "main": "src/app.ts",
   "scripts": {
@@ -24,9 +24,11 @@
     "express": "5",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
+    "multer": "1.4.5-lts.1",
     "pg": "^8.14.0",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.21",
+    "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -34,6 +36,7 @@
     "@types/express": "5",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/morgan": "^1.9.9",
+    "@types/multer": "^1.4.12",
     "@types/node": "^22.13.10",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"

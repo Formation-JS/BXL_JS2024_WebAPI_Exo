@@ -15,11 +15,11 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 ## Endpoints de l'API
 
 ### /api/product - Gestion des produits
-- [ ] Obtenir la liste des produits
-- [ ] Obtenir le détail d'un produit
-- [ ] **(Admin/Manager)** Ajouter un produit
-- [ ] **(Admin/Manager)** Modifier un produit
-- [ ] **(Admin/Manager)** Ajouter une image à un produit *(Tips : Multer)*
+- [x] Obtenir la liste des produits
+- [x] Obtenir le détail d'un produit
+- [x] **(Admin/Manager)** Ajouter un produit
+- [x] **(Admin/Manager)** Modifier un produit
+- [x] **(Admin/Manager)** Ajouter une image à un produit *(Tips : Multer)*
 
 ### /api/stock - Gestion des transactions dans le stock des produits
 - [ ] Ajout ou retrait d'une quantité de produit dans le stock

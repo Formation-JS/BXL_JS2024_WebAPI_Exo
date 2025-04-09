@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import * as memberService from '../services/member.service';
-import { MemberCreateData, MemberLoginData, MemberUpdateData } from '../@types/member';
+import { MemberCreateForm, MemberLoginForm, MemberUpdateForm } from '../@types/member';
 import { generateToken } from '../utils/jwt.utils';
 import { MemberRole } from '../models/member.model';
 import { MemberDataDTO } from '../dto/member.dto';
@@ -8,7 +8,7 @@ import { MemberDataDTO } from '../dto/member.dto';
 const memberController = {
 
   add: async (req: Request, res: Response) => {
-    const data = req.data as MemberCreateData;
+    const data = req.data as MemberCreateForm;
 
     if (await memberService.exists(data.login)) {
       res.status(409).json({ error: `Login "${data.login}" already exists` });
@@ -42,7 +42,7 @@ const memberController = {
 
   modify: async (req: Request, res: Response) => {
     const memberId = parseInt(req.params.id);
-    const data = req.data as MemberUpdateData;
+    const data = req.data as MemberUpdateForm;
 
     if (isNaN(memberId)) {
       res.status(400).json({ error: 'Bad id parameter' });
@@ -71,7 +71,7 @@ const memberController = {
   },
 
   login: async (req: Request, res: Response) => {
-    const { login, password } = req.data as MemberLoginData;
+    const { login, password } = req.data as MemberLoginForm;
 
     const member = await memberService.login(login, password);
     if (!member) {
