@@ -14,16 +14,16 @@ productRouter.route('/')
     paginationMiddleware({ defaultLimit: 5}),
     productController.getAll)
   .post(
-    bodyValidatorMiddleware(productValidator),
     authorizeMiddleware(MemberRole.ADMIN, MemberRole.MANAGER),
+    bodyValidatorMiddleware(productValidator),
     productController.add)
   .all((_, res) => { res.sendStatus(405); });
 
 productRouter.route('/:id')
   .get(productController.getById)
   .put(
-    bodyValidatorMiddleware(productValidator),
     authorizeMiddleware(MemberRole.ADMIN, MemberRole.MANAGER),
+    bodyValidatorMiddleware(productValidator),
     productController.modify)
   .all((_, res) => { res.sendStatus(405); });
 
