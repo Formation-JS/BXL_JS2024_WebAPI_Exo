@@ -19,7 +19,7 @@ export async function findById(id: number): Promise<Product | null> {
 export async function find(offset: number = 0, limit: number = 20): Promise<{ products: Product[], count: number; }> {
   const productRepo = AppDataSource.getRepository(Product);
   const [products, count] = await productRepo.findAndCount({
-    select: { id: true, name: true },
+    select: { id: true, name: true, currentStock: true },
     skip: offset,
     take: limit,
     order: { id: 1 }
@@ -45,7 +45,8 @@ export async function create(data: ProductForm) {
     name: data.name,
     ean13: data.ean13,
     description: data.description,
-    category
+    category,
+    currentStock: 0
   });
   await productRepo.save(product);
 
