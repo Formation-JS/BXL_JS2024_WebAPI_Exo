@@ -22,17 +22,7 @@ export function create(data: StockEntryForm, memberId: number) {
       throw new Error('Le produit n\'existe pas.');
     }
 
-    let productStock = product.currentStock;
-    switch (data.operation) {
-      case StockEntryOperation.ADDITION:
-        productStock = productStock + data.quantity;
-        break;
-      case StockEntryOperation.WITHDRAWAL:
-        productStock = productStock - data.quantity;
-        break;
-      default:
-        throw new Error('Opération est invalide.');
-    }
+    const productStock = getModifCurrentStock(product, data);
     if (productStock < 0) {
       throw new Error('Le stock d\'un produit ne peut pas tomber en négatif');
     }
@@ -67,6 +57,54 @@ export function create(data: StockEntryForm, memberId: number) {
 
     return stockEntryCreated;
   });
+}
 
+function getModifCurrentStock(
+  product: Product,
+  entry: { operation: StockEntryOperation, quantity: number; },
+  toCancel = false
+) {
+  let productStock = product.currentStock;
+  const quantity = (!toCancel) ? entry.quantity : -entry.quantity;
 
+  switch (entry.operation) {
+    case StockEntryOperation.ADDITION:
+      return productStock + quantity;
+    case StockEntryOperation.WITHDRAWAL:
+      return productStock - quantity;
+    default:
+      throw new Error('Opération est invalide.');
+  }
+}
+
+export function cancel(stockEntryId: number) {
+
+  return AppDataSource.manager.transaction(async transactionalManager => {
+    const productRepo = transactionalManager.getRepository(Product);
+    const stockRepo = transactionalManager.getRepository(StockEntry);
+
+    // Validation
+    const stockEntry = await stockRepo.findOne({
+      where: { id: stockEntryId },
+      relations: { product: true }
+    });
+
+    if (!stockEntry) {
+      throw new Error('La transaction n\'a pas été trouvé.');
+    }
+    if (stockEntry.isCancel) {
+      throw new Error('La transaction est déjà annulé.');
+    }
+
+    const productStock = getModifCurrentStock(stockEntry.product, stockEntry, true);
+
+    // Mise à jour de la DB
+    productRepo.update(stockEntry.product.id, {
+      currentStock: productStock
+    });
+
+    stockRepo.update(stockEntryId, {
+      isCancel: true
+    });
+  });
 }

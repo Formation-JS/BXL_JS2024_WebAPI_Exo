@@ -30,4 +30,7 @@ export default class StockEntry {
   @CreateDateColumn({ type: "timestamp" })
   createdAt: Date;
 
+  @Column({ type: 'bool', default: false })
+  isCancel: boolean;
+
 }

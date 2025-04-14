@@ -26,7 +26,20 @@ const stockController = {
   },
 
   cancel: async (req: Request, res: Response) => {
-    res.sendStatus(501);
+    const stockEntryId = parseInt(req.params.id);
+
+    if (isNaN(stockEntryId)) {
+      res.status(400).json({ error: 'Bad id parameter' });
+      return;
+    }
+
+    try {
+      await stockService.cancel(stockEntryId);
+      res.sendStatus(204);
+    }
+    catch (error: any) {
+      res.status(400).json({ error: error?.message ?? error });
+    }
   },
 
   adjust: async (req: Request, res: Response) => {

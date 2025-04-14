@@ -25,7 +25,7 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 - [x]  **(Connecté)** Ajout ou retrait d'une quantité de produit dans le stock
 - [ ]  **(Connecté)** Obtenir la liste des transactions  
 *Par default, on obtient de la plus récentes à la plus ancienne.*
-- [ ] **(Admin/Manager)** Annuler une transaction  
+- [x] **(Admin/Manager)** Annuler une transaction d'ajout et retrait 
 *Il doit resté possible d'obtenir les transactions annulées.*
 - [ ] **(Admin/Manager)** Corrigé la valeur d'un stock de produit  
 *Ce endpoint sera utilisé, par exemple, lors des inventaires de l'entrepôt.*
