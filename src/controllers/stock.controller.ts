@@ -1,4 +1,7 @@
 import { Request, Response } from 'express';
+import * as stockService from './../services/stock.service';
+import { StockEntryForm } from '../@types/stock';
+import { StockEntryDTO } from '../dto/stock-entry.dto';
 
 const stockController = {
 
@@ -7,7 +10,19 @@ const stockController = {
   },
 
   add: async (req: Request, res: Response) => {
-    res.sendStatus(501);
+    const data = req.data as StockEntryForm;
+    const memberId = req.token?.id!;
+
+    try {
+      const entryCreated = await stockService.create(data, memberId);
+
+      res.status(201)
+        .location('/api/stock')
+        .json(new StockEntryDTO(entryCreated));
+    }
+    catch (error: any) {
+      res.status(400).json({ error: error?.message ?? error });
+    }
   },
 
   cancel: async (req: Request, res: Response) => {

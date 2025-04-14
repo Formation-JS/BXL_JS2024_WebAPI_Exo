@@ -2,6 +2,8 @@ import { Router } from 'express';
 import stockController from '../controllers/stock.controller';
 import { authorizeMiddleware } from '../middlewares/auth.middleware';
 import { MemberRole } from '../models/member.model';
+import { bodyValidatorMiddleware } from '../middlewares/body-validator.middleware';
+import { stockEntryValidator } from '../validators/stock.validator';
 
 
 const stockRouter = Router();
@@ -12,6 +14,7 @@ stockRouter.route('/')
     stockController.getAll)
   .post(
     authorizeMiddleware(),
+    bodyValidatorMiddleware(stockEntryValidator),
     stockController.add)
   .all((_, res) => { res.sendStatus(405); });
 

@@ -20,3 +20,14 @@ export class MemberDataDTO {
   }
 }
 
+export class MemberInfoDTO {
+  id: number;
+  login: string;
+  role: MemberRole;
+
+  constructor(member: Member) {
+    this.id = member.id;
+    this.login = member.login;
+    this.role = member.role;
+  }
+}

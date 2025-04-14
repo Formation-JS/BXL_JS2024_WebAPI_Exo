@@ -22,7 +22,7 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 - [x] **(Admin/Manager)** Ajouter une image à un produit *(Tips : Multer)*
 
 ### /api/stock - Gestion des transactions dans le stock des produits
-- [ ]  **(Connecté)** Ajout ou retrait d'une quantité de produit dans le stock
+- [x]  **(Connecté)** Ajout ou retrait d'une quantité de produit dans le stock
 - [ ]  **(Connecté)** Obtenir la liste des transactions  
 *Par default, on obtient de la plus récentes à la plus ancienne.*
 - [ ] **(Admin/Manager)** Annuler une transaction  
