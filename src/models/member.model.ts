@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Unique, JoinColumn, OneToMany } from 'typeorm';
+import StockEntry from './stock-entry.model';
 
 //? Les enum sont supporté en PostgreSQL 😉
 export enum MemberRole {
@@ -17,7 +18,7 @@ export default class Member {
   @Unique('UK_Member_Login', (member) => member.login)
   login: string;
 
-  @Column({ type: 'character', length: 97, nullable: false})
+  @Column({ type: 'character', length: 97, nullable: false })
   password: string | null;
 
   @Column({ type: 'character varying', length: 200 })
@@ -37,4 +38,9 @@ export default class Member {
 
   @Column({ type: 'bool', default: false })
   isDisable: boolean;
+
+  @OneToMany(() => StockEntry, (se) => se.createBy)
+  @JoinColumn()
+  stockEntries: StockEntry[];
+
 }

@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Unique, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import Category from './category.model';
+import StockEntry from './stock-entry.model';
 
 @Entity()
 export default class Product {
@@ -10,7 +11,7 @@ export default class Product {
   @Column({ type: 'character varying', length: 50 })
   name: string;
 
-  @Column({ type: 'character', length: 13})
+  @Column({ type: 'character', length: 13 })
   @Unique('UK_Product_EAN13', (product) => product.ean13)
   ean13: string;
 
@@ -23,5 +24,12 @@ export default class Product {
 
   @Column({ type: 'character varying', length: 50, nullable: true })
   image: string | null;
+
+  @OneToMany(() => StockEntry, (se) => se.product)
+  @JoinColumn()
+  stockEntries: StockEntry[];
+
+  @Column({ type: 'int' })
+  currentStock: number;
 
 }
