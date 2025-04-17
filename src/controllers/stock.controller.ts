@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import * as stockService from './../services/stock.service';
-import { StockEntryForm } from '../@types/stock';
+import { StockAdjustForm, StockEntryForm } from '../@types/stock';
 import { StockEntryDTO } from '../dto/stock-entry.dto';
 
 const stockController = {
@@ -43,7 +43,16 @@ const stockController = {
   },
 
   adjust: async (req: Request, res: Response) => {
-    res.sendStatus(501);
+    const data = req.data as StockAdjustForm[];
+    const memberId = req.token?.id!;
+
+    try {
+      await stockService.adjust(data,memberId);
+      res.sendStatus(204);
+    }
+    catch (error: any) {
+      res.status(400).json({ error: error?.message ?? error });
+    }
   }
 
 };

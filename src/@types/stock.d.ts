@@ -5,3 +5,8 @@ export type StockEntryForm = {
   quantity: number;
   operation: StockEntryOperation.ADDITION | StockEntryOperation.WITHDRAWAL;
 };
+
+export type StockAdjustForm = {
+  productId: number;
+  stock: number;
+};

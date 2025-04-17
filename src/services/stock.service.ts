@@ -1,11 +1,11 @@
-import { StockEntryForm } from '../@types/stock';
+import { In } from 'typeorm';
+import { StockAdjustForm, StockEntryForm } from '../@types/stock';
 import { AppDataSource } from '../config/db';
 import Member from '../models/member.model';
 import Product from '../models/product.model';
 import StockEntry, { StockEntryOperation } from '../models/stock-entry.model';
 
 export function create(data: StockEntryForm, memberId: number) {
-
   return AppDataSource.manager.transaction(async transactionalManager => {
     const productRepo = transactionalManager.getRepository(Product);
     const stockRepo = transactionalManager.getRepository(StockEntry);
@@ -14,7 +14,7 @@ export function create(data: StockEntryForm, memberId: number) {
     // Validation
     const member = await memberRepo.findOneBy({ id: memberId, isDisable: false });
     if (!member) {
-      throw new Error('L\'utilisation est invalide.');
+      throw new Error('L\'utilisateur est invalide.');
     }
 
     const product = await productRepo.findOneBy({ id: data.productId });
@@ -78,7 +78,6 @@ function getModifCurrentStock(
 }
 
 export function cancel(stockEntryId: number) {
-
   return AppDataSource.manager.transaction(async transactionalManager => {
     const productRepo = transactionalManager.getRepository(Product);
     const stockRepo = transactionalManager.getRepository(StockEntry);
@@ -106,5 +105,47 @@ export function cancel(stockEntryId: number) {
     stockRepo.update(stockEntryId, {
       isCancel: true
     });
+  });
+}
+
+export function adjust(data: StockAdjustForm[], memberId: number) {
+  return AppDataSource.manager.transaction(async transactionalManager => {
+    const productRepo = transactionalManager.getRepository(Product);
+    const stockRepo = transactionalManager.getRepository(StockEntry);
+    const memberRepo = transactionalManager.getRepository(Member);
+
+    const member = await memberRepo.findOneBy({ id: memberId, isDisable: false });
+    if (!member) {
+      throw new Error('L\'utilisateur est invalide.');
+    }
+
+    const products = await productRepo.find({
+      where: { id: In(data.map(e => e.productId)) }
+    });
+    if (products.length === 0) {
+      throw new Error('Les produits ne sont pas valide.');
+    }
+
+    type AdjustResult = { stockEntries: StockEntry[], productsUpdated: Product[]; };
+    const { stockEntries, productsUpdated } = products.reduce((acc, product) => {
+
+      const adjustData = data.find(e => e.productId == product.id);
+      if (!adjustData) { return acc; }
+
+      const productUpdate = { ...product, currentStock: adjustData.stock}
+      acc.productsUpdated.push(productUpdate);
+
+      const stockEntry = new StockEntry();
+      stockEntry.operation = StockEntryOperation.ADJUSTMENT;
+      stockEntry.createBy = member;
+      stockEntry.product = product;
+      stockEntry.quantity = adjustData.stock;
+      acc.stockEntries.push(stockEntry);
+
+      return acc;
+    }, { stockEntries: [], productsUpdated: [] } as AdjustResult);
+
+    productRepo.save(productsUpdated);
+    stockRepo.save(stockEntries);
   });
 }

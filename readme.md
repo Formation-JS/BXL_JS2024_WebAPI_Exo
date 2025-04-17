@@ -24,12 +24,13 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 ### /api/stock - Gestion des transactions dans le stock des produits
 - [x]  **(Connecté)** Ajout ou retrait d'une quantité de produit dans le stock
 - [ ]  **(Connecté)** Obtenir la liste des transactions  
-*Par default, on obtient de la plus récentes à la plus ancienne.*
+*Par default, on obtient de la plus récentes à la plus ancienne.*  
+*Il doit être possible d'obtenir la liste pour un produit ou plusieurs produits*  
 - [x] **(Admin/Manager)** Annuler une transaction d'ajout et retrait 
 *Il doit resté possible d'obtenir les transactions annulées.*
-- [ ] **(Admin/Manager)** Corrigé la valeur d'un stock de produit  
+- [x] **(Admin/Manager)** Corrigé la valeur d'un stock de produit  
 *Ce endpoint sera utilisé, par exemple, lors des inventaires de l'entrepôt.*
-- [ ]  **(Connecté)** Obtenir la liste des transactions pour un produit 
+- [ ]  **(Connecté)** Obtenir l'historique des stocks d'un produit  
 *Ce endpoint sera utilisé pour générer un graphique de l'évolution du stock*
 
 ### /api/member - Gestion des utilisateurs 
