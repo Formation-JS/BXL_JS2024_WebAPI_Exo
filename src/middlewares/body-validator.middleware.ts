@@ -7,8 +7,16 @@ export function bodyValidatorMiddleware(dataValidator: ZodType) {
 
     const { data, success, error } = dataValidator.safeParse(req.body);
     if (!success) {
-        res.status(422).json({ error: error.flatten().fieldErrors });
-        return;
+
+      let { fieldErrors, formErrors } = error.flatten();
+
+      let requestError = null;
+      if (formErrors.length > 0) {
+        requestError = { request: formErrors.filter(msg => !!msg) };
+      }
+
+      res.status(422).json({ error: requestError ?? fieldErrors });
+      return;
     }
 
     req.data = data;

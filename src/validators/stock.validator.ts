@@ -21,4 +21,6 @@ export const stockEntryValidator: z.ZodType<StockEntryForm> = z.object({
       message: issue.code === 'invalid_type' ? 'Le champs "operation" est requis' : 'Les types d\'opération supporté sont : "addition", "withdrawal"'
     })
   })
+}, {
+  message: 'Un objet "StockEntry" est requis'
 });

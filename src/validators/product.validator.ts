@@ -24,4 +24,6 @@ export const productValidator: z.ZodType<ProductForm> = z.object({
     invalid_type_error: 'La categorie du produit doit un nombre entier positif'
   }).positive('La categorie du produit doit un nombre entier positif')
     .int('La categorie du produit doit un nombre entier positif')
+}, {
+  message: 'Un objet "Product" est requis'
 });
