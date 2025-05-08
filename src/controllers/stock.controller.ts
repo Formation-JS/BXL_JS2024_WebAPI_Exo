@@ -1,12 +1,20 @@
 import { Request, Response } from 'express';
 import * as stockService from './../services/stock.service';
 import { StockAdjustForm, StockEntryForm } from '../@types/stock';
-import { StockEntryDTO } from '../dto/stock-entry.dto';
+import { StockEntryDTO, StockEntryListDTO } from '../dto/stock-entry.dto';
 
 const stockController = {
 
   getAll: async (req: Request, res: Response) => {
-    res.sendStatus(501);
+    const { offset, limit } = req.pagination!;
+    const order = (req.query.order?.toString().toUpperCase() === 'ASC') ? 'ASC' : 'DESC';
+
+    const { stockEntries, count } = await stockService.find(offset, limit, order);
+
+    res.status(200).json({
+      results: stockEntries.map(se => new StockEntryListDTO(se)),
+      count
+    });
   },
 
   add: async (req: Request, res: Response) => {
@@ -47,7 +55,7 @@ const stockController = {
     const memberId = req.token?.id!;
 
     try {
-      await stockService.adjust(data,memberId);
+      await stockService.adjust(data, memberId);
       res.sendStatus(204);
     }
     catch (error: any) {

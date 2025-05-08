@@ -20,8 +20,18 @@ export class StockEntryDTO {
   }
 }
 
+export class StockEntryListDTO {
+  id: number;
+  productName: string;
+  quantity: number;
+  operation: StockEntryOperation;
+  createdAt: string;
 
-
-
-
-
+  constructor(stockEntry: StockEntry) {
+    this.id= stockEntry.id;
+    this.productName = stockEntry.product.name;
+    this.quantity = stockEntry.quantity;
+    this.operation = stockEntry.operation;
+    this.createdAt = stockEntry.createdAt.toISOString().split('T')[0]
+  }
+}

@@ -23,7 +23,7 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 
 ### /api/stock - Gestion des transactions dans le stock des produits
 - [x]  **(Connecté)** Ajout ou retrait d'une quantité de produit dans le stock
-- [ ]  **(Connecté)** Obtenir la liste des transactions  
+- [x]  **(Connecté)** Obtenir la liste des transactions  
 *Par default, on obtient de la plus récentes à la plus ancienne.*  
 *Il doit être possible d'obtenir la liste pour un produit ou plusieurs produits*  
 - [x] **(Admin/Manager)** Annuler une transaction d'ajout et retrait 

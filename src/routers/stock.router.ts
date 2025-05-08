@@ -4,6 +4,7 @@ import { authorizeMiddleware } from '../middlewares/auth.middleware';
 import { MemberRole } from '../models/member.model';
 import { bodyValidatorMiddleware } from '../middlewares/body-validator.middleware';
 import { stockAdjustValidator, stockEntryValidator } from '../validators/stock.validator';
+import { paginationMiddleware } from '../middlewares/pagination.middleware';
 
 
 const stockRouter = Router();
@@ -11,6 +12,7 @@ const stockRouter = Router();
 stockRouter.route('/')
   .get(
     authorizeMiddleware(),
+    paginationMiddleware(),
     stockController.getAll)
   .post(
     authorizeMiddleware(),

@@ -132,7 +132,7 @@ export function adjust(data: StockAdjustForm[], memberId: number) {
       const adjustData = data.find(e => e.productId == product.id);
       if (!adjustData) { return acc; }
 
-      const productUpdate = { ...product, currentStock: adjustData.stock}
+      const productUpdate = { ...product, currentStock: adjustData.stock };
       acc.productsUpdated.push(productUpdate);
 
       const stockEntry = new StockEntry();
@@ -148,4 +148,20 @@ export function adjust(data: StockAdjustForm[], memberId: number) {
     productRepo.save(productsUpdated);
     stockRepo.save(stockEntries);
   });
+}
+
+export async function find(offset: number = 0, limit: number = 20, order: 'ASC'|'DESC'): Promise<{ stockEntries: StockEntry[], count: number; }> {
+  const stockRepo = AppDataSource.getRepository(StockEntry);
+
+  const [stockEntries, count] = await stockRepo.findAndCount({
+    select: { id: true, quantity: true, operation: true, product: { name: true }, createdAt: true },
+    relations: {
+      product: true
+    },
+    skip: offset,
+    take: limit,
+    order: { createdAt: order }
+  });
+
+  return { stockEntries, count };
 }
