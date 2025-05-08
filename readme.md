@@ -22,16 +22,14 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 - [x] **(Admin/Manager)** Ajouter une image à un produit *(Tips : Multer)*
 
 ### /api/stock - Gestion des transactions dans le stock des produits
-- [x]  **(Connecté)** Ajout ou retrait d'une quantité de produit dans le stock
-- [x]  **(Connecté)** Obtenir la liste des transactions  
+- [x] **(Connecté)** Ajout ou retrait d'une quantité de produit dans le stock
+- [x] **(Connecté)** Obtenir la liste des transactions  
 *Par default, on obtient de la plus récentes à la plus ancienne.*  
 *Il doit être possible d'obtenir la liste pour un produit ou plusieurs produits*  
 - [x] **(Admin/Manager)** Annuler une transaction d'ajout et retrait 
 *Il doit resté possible d'obtenir les transactions annulées.*
 - [x] **(Admin/Manager)** Corrigé la valeur d'un stock de produit  
 *Ce endpoint sera utilisé, par exemple, lors des inventaires de l'entrepôt.*
-- [ ]  **(Connecté)** Obtenir l'historique des stocks d'un produit  
-*Ce endpoint sera utilisé pour générer un graphique de l'évolution du stock*
 
 ### /api/member - Gestion des utilisateurs 
 - [x] **(Admin)** Créer des compte
@@ -40,6 +38,10 @@ $\scriptsize\color{gray}{\textsf{NB : Le client (votre formateur 😅) peut modi
 - [x] **(Connecté)** Modifier les informations de profil  
 *Ce endpoint permet de modifier uniquement les informations de son profil. Un admin peut modifier tout les profils*
 - [x] **(Admin)** Désactiver  un compte
+
+### /api/⁇⁇ - Historique (Bonus)
+- [ ] **(Connecté)** Obtenir l'historique des stocks d'un produit  
+*Ce endpoint sera utilisé pour générer un graphique de l'évolution du stock*
 
 ## Les modèles de données
 
@@ -102,8 +104,9 @@ Si une transaction devrait le faire, celle-ci doit être bloqué et envoyé une 
 #### Notification (Bonus)
 Quand la quantité de produit arrivé à moins de 10, suite à un retrait. Les managers reçoivent un mail d'alert.
 
-#### Historique du stock des produits
-L'utilisateur doit pouvoir obtenir l'historique de la quantité d'un produit dans le stock pour un laps de temps. Cette fonctionnalité permettra à l'application front-end d'afficher un graphique avec l'évolution du stock de produit.
+### Historique du stock des produits (Bonus)
+L'utilisateur doit pouvoir obtenir l'historique de la quantité d'un produit dans le stock pour un laps de temps. Cette fonctionnalité permettra à l'application front-end d'afficher un graphique avec l'évolution du stock de produit.  
+Attention, l'historique des stocks doit prendre en compte les ajustements de stock et les éventuelles annulation de transaction.
 
 L'utilisateur doit pouvoir parametrer les informations suivantes :
 - Le laps de temps (Date de debut et de fin)
