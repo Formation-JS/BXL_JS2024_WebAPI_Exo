@@ -1,0 +1,22 @@
+meta {
+  name: Adjust Stock
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/stock/adjust
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  [{
+  	"productId": 6,
+  	"stock": 666
+  }]
+}

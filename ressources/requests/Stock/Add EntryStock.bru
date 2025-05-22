@@ -1,0 +1,25 @@
+meta {
+  name: Add EntryStock
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/stock
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+  	"productId": 1, 
+  	"quantity": 10,
+  	"operation": "addition" 
+  }
+  
+  
+}

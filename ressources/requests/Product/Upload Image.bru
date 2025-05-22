@@ -1,0 +1,19 @@
+meta {
+  name: Upload Image
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/api/product/1/image
+  body: multipartForm
+  auth: inherit
+}
+
+headers {
+  Content-Type: multipart/form-data
+}
+
+body:multipart-form {
+  image: undefined
+}
