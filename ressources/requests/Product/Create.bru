@@ -1,0 +1,29 @@
+meta {
+  name: Create
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/product
+  body: json
+  auth: inherit
+}
+
+params:query {
+  offset: 5
+  ~limit: 3
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+  	"name": "Toto",
+  	"ean13": "1234567890126",
+  	"description": null,
+  	"categoryId": 11
+  }
+}

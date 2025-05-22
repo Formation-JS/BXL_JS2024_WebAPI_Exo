@@ -1,0 +1,29 @@
+meta {
+  name: Update
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/product/10
+  body: json
+  auth: inherit
+}
+
+params:query {
+  offset: 5
+  ~limit: 3
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+  	"name": "Poire",
+  	"ean13": "1234567890125",
+  	"description": "Ceci est une poire !!!",
+  	"categoryId": 2
+  }
+}

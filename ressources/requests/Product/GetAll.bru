@@ -1,0 +1,19 @@
+meta {
+  name: GetAll
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8080/api/product
+  body: none
+  auth: inherit
+}
+
+params:query {
+  limit: 30
+  ~offset: 5
+}
+
+headers {
+}
