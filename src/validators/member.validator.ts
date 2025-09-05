@@ -22,6 +22,8 @@ export const memberUpdateValidator: z.ZodType<MemberUpdateForm> = z.object({
     .max(50, 'Le nom peut contenir maximum 50 caracteres')
     .trim()
     .nullable()
+}, {
+  message: 'Un objet "Member" est requis'
 });
 
 export const memberCreateValidator: z.ZodType<MemberCreateForm> = memberUpdateValidator.and(z.object({
@@ -35,7 +37,7 @@ export const memberCreateValidator: z.ZodType<MemberCreateForm> = memberUpdateVa
     required_error: 'Le champs "password" est requis',
     invalid_type_error: 'Le mot de passe doit être une chaîne de caractere'
   })
-}));
+}, { message: '' }));
 
 export const memberLoginValidator: z.ZodType<MemberLoginForm> = z.object({
   login: z.string({
@@ -46,4 +48,6 @@ export const memberLoginValidator: z.ZodType<MemberLoginForm> = z.object({
     required_error: 'Le champs "password" est requis',
     invalid_type_error: 'Le mot de passe doit être une chaîne de caractere'
   })
+}, {
+  message: 'Un objet "Login" est requis'
 });

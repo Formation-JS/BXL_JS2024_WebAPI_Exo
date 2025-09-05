@@ -1,10 +1,10 @@
 {
   "name": "web-api-exo-recap",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Exercice recap - WebAPI avec Express",
   "main": "src/app.ts",
   "scripts": {
-    "start": "tsx --env-file=.env src/app.ts",
+    "start": "tsx --env-file-if-exists=.env src/app.ts",
     "dev": "tsx --env-file=.env --watch src/app.ts",
     "db-sync": "tsx --env-file=.env src/init-database.ts",
     "db-init": "tsx --env-file=.env src/init-database.ts --drop-db",
@@ -24,7 +24,7 @@
     "express": "5",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
-    "multer": "1.4.5-lts.1",
+    "multer": "2.0.2",
     "pg": "^8.14.0",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.21",
@@ -36,7 +36,7 @@
     "@types/express": "5",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/morgan": "^1.9.9",
-    "@types/multer": "^1.4.12",
+    "@types/multer": "^2.0.0",
     "@types/node": "^22.13.10",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"

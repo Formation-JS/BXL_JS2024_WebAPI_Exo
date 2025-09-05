@@ -104,37 +104,43 @@ async function initialProduct(ads: DataSource) {
       name: 'T-shirt en coton bio',
       ean13: '3612345678901',
       description: 'T-shirt confortable en coton biologique, idéal pour un usage quotidien.',
-      category: cat1
+      category: cat1,
+      currentStock: 0
     },
     {
       name: 'Montre connectée',
       ean13: '3612345678949',
       description: 'Montre connectée avec suivi d\'activité, notifications et GPS intégré.',
-      category: cat2
+      category: cat2,
+      currentStock: 0
     },
     {
       name: 'Smartphone 5G',
       ean13: '3612345678956',
       description: null,
-      category: cat2
+      category: cat2,
+      currentStock: 0
     },
     {
       name: 'Pull en laine mérinos',
       ean13: '3612345678932',
       description: 'Pull chaud et doux en laine mérinos, parfait pour les journées fraîches.',
-      category: cat1
+      category: cat1,
+      currentStock: 0
     },
     {
       name: 'Ordinateur portable',
       ean13: '3612345678970',
       description: null,
-      category: cat2
+      category: cat2,
+      currentStock: 0
     },
     {
       name: 'Tablette tactile',
       ean13: '3612345678987',
       description: 'Tablette tactile avec écran de 10 pouces, idéale pour la navigation web et le divertissement.',
-      category: cat2
+      category: cat2,
+      currentStock: 0
     }
   ]);
   await productRepo.save(products);

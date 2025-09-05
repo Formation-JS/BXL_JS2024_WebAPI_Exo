@@ -1,0 +1,25 @@
+meta {
+  name: Update
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/member/3
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "login": "fifi",
+      "email": "fifi.duck@hotmail.com",
+      "firstname": "Fifi",
+      "lastname": "Duck",
+      "password": "Test1234="
+  }
+}
